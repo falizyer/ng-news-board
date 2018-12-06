@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { max } from 'rxjs/operators';
 
 @Component({
   selector: 'nb-dashboard',
@@ -19,9 +18,11 @@ export class DashboardComponent implements OnInit {
   public ngOnInit(): void {
     const { sources } = this.route.snapshot.data;
     this.route.params.subscribe(params => {
-      const index: number = +params['index'];
-      const start: number = (index - 1) * 10;
       const numberOfPages: number = Math.floor(sources.sources.length / 10);
+
+      const index: number = Math.min(+params['index'], numberOfPages);
+      const start: number = (index - 1) * 10;
+
       const minPage: number = Math.max(1, index - 3);
       const maxPage: number = Math.min(numberOfPages, index + 3);
       const arrayLength: number = Math.max(5, maxPage - minPage);
