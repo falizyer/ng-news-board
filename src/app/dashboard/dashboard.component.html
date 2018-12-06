@@ -2,3 +2,6 @@
 <div *ngFor="let source of sources">
   <nb-source-container [source]="source"></nb-source-container>
 </div>
+<div *ngFor="let index of pageArray">
+  <a routerLink="/dashboard/{{index}}">{{index}}</a>
+</div>
