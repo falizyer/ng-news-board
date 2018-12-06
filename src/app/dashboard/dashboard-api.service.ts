@@ -1,23 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { from, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NewsBoard } from '../index';
-import SourceItemResponseObject = NewsBoard.SourceItemResponseObject;
-
-function* sources(): any {
-  yield [
-    'abc-news',
-    'abc-news-au',
-    'aftenposten',
-    'al-jazeera-english'
-  ];
-}
 
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardApiService implements Resolve<string[]> {
+export class DashboardApiService implements Resolve<NewsBoard.ArticleResponseObject> {
 
   private apiKey: string;
   private apiUrl: string;
@@ -27,7 +17,7 @@ export class DashboardApiService implements Resolve<string[]> {
     this.apiUrl = 'https://newsapi.org/v2/';
   }
 
-  public getSources(): Observable<Object> {
+  public getSources(): Observable<any> {
     const url = `${this.apiUrl}/sources?apiKey=${this.apiKey}`;
     return this.http.get(url);
   }
@@ -36,7 +26,7 @@ export class DashboardApiService implements Resolve<string[]> {
     this.http.get(`${this.apiUrl}/sources/${source}&apiKey=${this.apiKey}`);
   }
 
-  public resolve(): Observable<string[]> {
-    return from(sources());
+  public resolve(): Observable<NewsBoard.ArticleResponseObject> {
+    return this.getSources();
   }
 }

@@ -15,6 +15,10 @@ export class DashboardComponent implements OnInit {
 
   public ngOnInit(): void {
     const { sources } = this.route.snapshot.data;
-    this.sources = sources;
+    this.route.params.subscribe(params => {
+      const index: number = +params['index'];
+      const start: number = (index - 1) * 10;
+      this.sources = sources.sources.slice(start, index * 10);
+    });
   }
 }

@@ -6,14 +6,10 @@ import { DashboardApiService } from './dashboard-api.service';
 
 const routes: Routes = [
   {
-    path: 'dashboard', component: DashboardComponent,
+    path: 'dashboard/:index', component: DashboardComponent,
     resolve: {
       sources: DashboardApiService
-    },
-    children: [
-      { path: '', redirectTo: 'page/1', pathMatch: 'full' },
-      { path: 'page/:index', component: DashboardComponent }
-    ]
+    }
   }
 ];
 
