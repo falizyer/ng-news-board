@@ -5,6 +5,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import { SharedModule } from '../shared/shared.module';
+
 @NgModule({
   declarations: [
     DashboardComponent
@@ -12,7 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ]
 })
 export class DashboardModule {

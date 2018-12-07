@@ -21,14 +21,16 @@ export class DashboardComponent implements OnInit {
     return `/dashboard/${index}`;
   }
 
+  // TODO add pipe for filtering
   public ngOnInit(): void {
     const { sources } = this.route.snapshot.data;
-    this.numberOfPages = Math.ceil(sources.sources.length / 10);
+    const recordsPerPage = 10;
+    this.numberOfPages = Math.ceil(sources.sources.length / recordsPerPage);
     this.route.params.subscribe(params => {
       const index: number = +params['index'];
-      const start: number = (index - 1) * 10;
+      const start: number = (index - 1) * recordsPerPage;
       this.currentPage = index;
-      this.sources = sources.sources.slice(start, index * 10);
+      this.sources = sources.sources.slice(start, index * recordsPerPage);
     });
   }
 }

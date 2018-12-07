@@ -1,3 +1,6 @@
 <div *ngFor="let feed of feeds">
-  <!--<nb-source-container [source]="feed"></nb-source-container>-->
+  <nb-source-container [source]="feed"></nb-source-container>
 </div>
+<nb-pagination [routeLink]="paginationRoute"
+               [length]="numberOfPages"
+               [current]="currentPage"></nb-pagination>
