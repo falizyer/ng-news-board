@@ -1,0 +1,10 @@
+<div class="dashboard-inner-wrap">
+  <div class="dashboard-container">
+    <nb-source-container *ngFor="let source of sources"
+                         [source]="source"
+                         [onSubscribe]="onSubscribeFn"></nb-source-container>
+  </div>
+  <nb-pagination [routeLink]="paginationRoute"
+                 [length]="numberOfPages"
+                 [current]="currentPage"></nb-pagination>
+</div>

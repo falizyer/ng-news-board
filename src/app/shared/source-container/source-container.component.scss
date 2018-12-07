@@ -1,0 +1,20 @@
+.source-container-inner {
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    margin-top: 0;
+
+    .icon {
+      cursor: pointer;
+    }
+
+    .icon:hover {
+      color: #666;
+    }
+  }
+
+  .content {
+    flex-grow: 1;
+  }
+}
