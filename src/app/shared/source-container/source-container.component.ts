@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NewsBoard } from '../..';
+import { NewsBoard } from '../../index';
 
 @Component({
   selector: 'nb-source-container',
@@ -9,6 +9,7 @@ import { NewsBoard } from '../..';
 export class SourceContainerComponent implements OnInit {
 
   @Input() source: NewsBoard.SourceItemObject;
+  @Input() onSubscribe: (source) => void;
 
   constructor() { }
 
