@@ -13,11 +13,13 @@ export class DashboardComponent implements OnInit {
   private sources: NewsBoard.SourceItemObject[] = [];
   private numberOfPages: number;
   private currentPage: number;
+  private onSubscribeFn: (source: NewsBoard.SourceItemObject) => void;
 
   constructor(private route: ActivatedRoute,
               private feedApiService: FeedApiService) {
     this.numberOfPages = 0;
     this.currentPage = 1;
+    this.onSubscribeFn = this.onSubscribe.bind(this);
   }
 
   paginationRoute(index: number): string {

@@ -2,7 +2,7 @@
   <div class="dashboard-container">
     <nb-source-container *ngFor="let source of sources"
                          [source]="source"
-                         [onSubscribe]="onSubscribe"></nb-source-container>
+                         [onSubscribe]="onSubscribeFn"></nb-source-container>
   </div>
   <nb-pagination [routeLink]="paginationRoute"
                  [length]="numberOfPages"

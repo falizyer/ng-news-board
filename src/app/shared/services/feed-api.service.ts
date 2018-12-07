@@ -23,11 +23,13 @@ export class FeedApiService implements Resolve<any> {
   }
 
   public removeFeed(source: NewsBoard.SourceItemObject): void {
-    this.updateFeeds(this.feeds.filter(d => d.id !== source.id));
+    this.feeds = this.feeds.filter(d => d.id !== source.id);
+    this.updateFeeds(this.feeds);
   }
 
   public addFeed(source: NewsBoard.SourceItemObject): void {
-    this.updateFeeds([...this.feeds, source]);
+    this.feeds.push(source);
+    this.updateFeeds(this.feeds);
   }
 
   public updateFeeds(feeds: Array<NewsBoard.SourceItemObject>): void {
