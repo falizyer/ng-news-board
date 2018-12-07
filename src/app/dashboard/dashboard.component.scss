@@ -1,0 +1,21 @@
+.dashboard-inner-wrap {
+  display: flex;
+  flex-direction: column;
+
+  .dashboard-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    nb-source-container {
+      flex-basis: 30%;
+      min-width: 200px;
+      flex-shrink: 1;
+      flex-grow: 1;
+      padding: 10px;
+      max-width: 300px;
+    }
+  }
+}

@@ -1,8 +1,10 @@
-<section class="top-subscription-news"></section>
-<div *ngFor="let source of sources">
-  <nb-source-container [source]="source"
-                       [onSubscribe]="onSubscribe"></nb-source-container>
+<div class="dashboard-inner-wrap">
+  <div class="dashboard-container">
+    <nb-source-container *ngFor="let source of sources"
+                         [source]="source"
+                         [onSubscribe]="onSubscribe"></nb-source-container>
+  </div>
+  <nb-pagination [routeLink]="paginationRoute"
+                 [length]="numberOfPages"
+                 [current]="currentPage"></nb-pagination>
 </div>
-<nb-pagination [routeLink]="paginationRoute"
-               [length]="numberOfPages"
-               [current]="currentPage"></nb-pagination>

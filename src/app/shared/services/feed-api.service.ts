@@ -12,22 +12,22 @@ function* getFeeds() {
 })
 export class FeedApiService implements Resolve<any> {
 
+  feeds: NewsBoard.SourceItemObject[];
+
   constructor() {
+    this.feeds = getFeeds().next().value;
   }
 
   public isExists(source: NewsBoard.SourceItemObject): boolean {
-    const feeds: NewsBoard.SourceItemObject[] = getFeeds().next().value;
-    return !!feeds.find(d => d.id === source.id);
+    return !!this.feeds.find(d => d.id === source.id);
   }
 
   public removeFeed(source: NewsBoard.SourceItemObject): void {
-    const feeds: NewsBoard.SourceItemObject[] = getFeeds().next().value;
-    this.updateFeeds(feeds.filter(d => d.id !== source.id));
+    this.updateFeeds(this.feeds.filter(d => d.id !== source.id));
   }
 
   public addFeed(source: NewsBoard.SourceItemObject): void {
-    const feeds: NewsBoard.SourceItemObject[] = getFeeds().next().value;
-    this.updateFeeds([...feeds, source]);
+    this.updateFeeds([...this.feeds, source]);
   }
 
   public updateFeeds(feeds: Array<NewsBoard.SourceItemObject>): void {
