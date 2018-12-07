@@ -9,28 +9,26 @@ import { ActivatedRoute } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   private sources = [];
-  private pageArray: Array<number>;
-  private currentPageNumber: number;
+  private numberOfPages: number;
+  private currentPage: number;
 
   constructor(private route: ActivatedRoute) {
+    this.numberOfPages = 0;
+    this.currentPage = 1;
+  }
+
+  paginationRoute(index: number): string {
+    return `/dashboard/${index}`;
   }
 
   public ngOnInit(): void {
     const { sources } = this.route.snapshot.data;
+    this.numberOfPages = Math.ceil(sources.sources.length / 10);
     this.route.params.subscribe(params => {
-      const numberOfPages: number = Math.floor(sources.sources.length / 10);
-
-      const index: number = Math.min(+params['index'], numberOfPages);
+      const index: number = +params['index'];
       const start: number = (index - 1) * 10;
-
-      const minPage: number = Math.max(1, index - 3);
-      const maxPage: number = Math.min(numberOfPages, index + 3);
-      const arrayLength: number = Math.max(5, maxPage - minPage);
-      this.pageArray = new Array(arrayLength);
-      this.pageArray.fill(0);
+      this.currentPage = index;
       this.sources = sources.sources.slice(start, index * 10);
-      this.pageArray = this.pageArray.map((d, i) => minPage + i);
-      this.currentPageNumber = index;
     });
   }
 }

@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+ul.flat-list {
+  display: flex;
+  list-style: none;
+  padding-inline-start: 0;
+
+  & > li {
+    margin-right: 10px;
+  }
+}
