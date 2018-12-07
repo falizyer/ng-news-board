@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { FeedComponent } from './feed.component';
-import { FeedApiService } from './feed-api.service';
+import { FeedApiService } from '../shared/services/feed-api.service';
 
 const routes: Routes = [
   {
@@ -14,8 +14,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-  providers: [FeedApiService]
+  exports: [RouterModule]
 })
 export class FeedRoutingModule {
 }

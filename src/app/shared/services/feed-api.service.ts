@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { from, Observable } from 'rxjs';
-import { NewsBoard } from '../index';
+import { NewsBoard } from '../../index';
 
 function* getFeeds() {
   yield JSON.parse(window.localStorage.getItem('feeds')) || [];

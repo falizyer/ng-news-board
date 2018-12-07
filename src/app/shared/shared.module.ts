@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { SourceContainerComponent } from './source-container/source-container.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { FeedApiService } from './services/feed-api.service';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PaginationComponent } from './pagination/pagination.component';
   exports: [
     SourceContainerComponent,
     PaginationComponent
-  ]
+  ],
+  providers: [FeedApiService]
 })
 export class SharedModule { }

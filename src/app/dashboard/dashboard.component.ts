@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NewsBoard } from '../index';
-import { FeedApiService } from '../feed/feed-api.service';
+import { FeedApiService } from '../shared/services/feed-api.service';
 
 @Component({
   selector: 'nb-dashboard',
