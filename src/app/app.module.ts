@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { FeedModule } from './feed/feed.module';
+import { NewsModule } from './news/news.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { FeedModule } from './feed/feed.module';
     BrowserModule,
     AppRoutingModule,
     DashboardModule,
-    FeedModule
+    FeedModule,
+    NewsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 <div class="source-container-inner">
-  <h2>{{source.name}}</h2>
+  <h2 routerLink="/news/{{source.id}}">{{source.name}}</h2>
   <div class="content">{{source.description}}</div>
   <button (click)="onSubscribe(source)">subscribe</button>
 </div>
