@@ -9,10 +9,10 @@ import { NewsApiRepositoryService } from '../shared/services/news-api-repository
 })
 export class DashboardApiService implements Resolve<NewsBoard.ArticleResponseObject> {
 
-  constructor(private ewsApiRepositoryService: NewsApiRepositoryService) {
+  constructor(private newsApiRepositoryService: NewsApiRepositoryService) {
   }
 
   public resolve(): Observable<NewsBoard.ArticleResponseObject> {
-    return this.ewsApiRepositoryService.getSources();
+    return this.newsApiRepositoryService.getSources();
   }
 }

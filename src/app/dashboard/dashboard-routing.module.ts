@@ -5,12 +5,7 @@ import { DashboardComponent } from './dashboard.component';
 import { DashboardApiService } from './dashboard-api.service';
 
 const routes: Routes = [
-  {
-    path: 'dashboard/:index', component: DashboardComponent,
-    resolve: {
-      sources: DashboardApiService
-    }
-  }
+  { path: 'dashboard/:index', component: DashboardComponent }
 ];
 
 @NgModule({
