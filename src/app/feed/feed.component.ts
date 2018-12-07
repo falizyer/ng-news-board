@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'nb-feed',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedComponent implements OnInit {
 
-  constructor() { }
+  private feeds;
 
-  ngOnInit() {
+  constructor(private route: ActivatedRoute) {
+
+  }
+
+  public ngOnInit() {
+    const { feeds = [] } = this.route.snapshot.data;
+    this.feeds = feeds;
   }
 
 }

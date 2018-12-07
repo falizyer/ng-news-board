@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NewsBoard } from '../../index';
+import { NewsBoard } from '../..';
 
 @Component({
   selector: 'nb-source-container',
