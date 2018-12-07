@@ -5,11 +5,13 @@ import { RouterModule } from '@angular/router';
 import { SourceContainerComponent } from './source-container/source-container.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { FeedApiService } from './services/feed-api.service';
+import { SourceSearchComponent } from './source-search/source-search.component';
 
 @NgModule({
   declarations: [
     SourceContainerComponent,
-    PaginationComponent
+    PaginationComponent,
+    SourceSearchComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { FeedApiService } from './services/feed-api.service';
   ],
   exports: [
     SourceContainerComponent,
-    PaginationComponent
+    PaginationComponent,
+    SourceSearchComponent
   ],
   providers: [FeedApiService]
 })
