@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
   // TODO add pipe for filtering
   public ngOnInit(): void {
     const { sources } = this.route.snapshot.data;
-    const recordsPerPage = 10;
+    const recordsPerPage = 12;
     this.numberOfPages = Math.ceil(sources.sources.length / recordsPerPage);
     this.route.params.subscribe(params => {
       const index: number = +params['index'];

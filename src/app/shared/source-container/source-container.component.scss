@@ -1,10 +1,17 @@
 .source-container-inner {
   display: flex;
   flex-direction: column;
-  min-height: 200px;
 
   h2 {
     margin-top: 0;
+
+    .icon {
+      cursor: pointer;
+    }
+
+    .icon:hover {
+      color: #666;
+    }
   }
 
   .content {
