@@ -36,7 +36,8 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.searchTerms.next(filtered);
   }
 
-  // TODO add pipe for filtering
+  // TODO + add pipe for filtering
+  //      + fix issue with saving form state
   public ngOnInit() {
     const recordsPerPage = 2;
     this.filterFeed = new FormGroup({
