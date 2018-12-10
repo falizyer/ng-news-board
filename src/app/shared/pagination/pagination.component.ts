@@ -29,7 +29,6 @@ export class PaginationComponent implements OnChanges {
   }
 
   public ngOnChanges(changes) {
-    console.log(changes);
     this.listOfIndexes = this.getListOfIndexes();
   }
 
