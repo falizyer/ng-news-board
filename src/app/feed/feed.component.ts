@@ -21,9 +21,11 @@ export class FeedComponent implements OnInit, OnDestroy {
   private currentPage: number;
   private fdSub: Subscription;
 
+  language = 'en';
+
   constructor(private route: ActivatedRoute,
               private feedApiService: FeedApiService) {
-
+    this.numberOfPages = 0;
   }
 
   paginationRoute(index: number): string {
@@ -32,39 +34,28 @@ export class FeedComponent implements OnInit, OnDestroy {
 
   onSearch(filtered: FormGroup) {
     this.searchTerms.next(filtered);
-    // this.feeds$.subscribe(feeds => {
-    //   const recordsPerPage = 3;
-    //   this.numberOfPages = Math.ceil(feeds.length / recordsPerPage);
-    //   const start: number = (this.currentPage - 1) * recordsPerPage;
-    // });
   }
 
   // TODO add pipe for filtering
   public ngOnInit() {
-    const recordsPerPage = 12;
+    const recordsPerPage = 2;
+    this.filterFeed = new FormGroup({
+      language: new FormControl(this.language)
+    });
     this.route.params.subscribe(params => {
+      this.currentPage = +params['index'];
       this.feeds$ = this.searchTerms.pipe(
         debounceTime(300),
         switchMap((form: FormGroup) => {
           return this.feedApiService.getFeeds(form.value);
+        }),
+        map(value => {
+          this.numberOfPages = Math.ceil(value.length / recordsPerPage);
+          const start: number = (this.currentPage - 1) * recordsPerPage;
+          return value.slice(start, this.currentPage * recordsPerPage);
         })
       );
-      this.currentPage = +params['index'];
-      this.numberOfPages = 1;
-      this.filterFeed = new FormGroup({
-        language: new FormControl('')
-      });
-      this.onSearch(this.filterFeed);
-      // this.fdSub = this.feeds$
-      //   .subscribe(feeds => {
-      //     this.numberOfPages = Math.ceil(feeds.length / recordsPerPage);
-      //     const start: number = (this.currentPage - 1) * recordsPerPage;
-      //     this.feeds = feeds.slice(start, this.numberOfPages);
-      //   });
     });
-
-
-
   }
 
   public ngOnDestroy(): void {

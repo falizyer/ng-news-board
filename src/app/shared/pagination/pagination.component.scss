@@ -2,5 +2,13 @@
 
   ul.pagination-list {
     justify-content: center;
+
+    li {
+      text-decoration: none;
+
+      &.active {
+        text-decoration: underline;
+      }
+    }
   }
 }
