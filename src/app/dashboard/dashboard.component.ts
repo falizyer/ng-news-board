@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NewsBoard } from '../index';
 import { FeedApiService } from '../shared/services/feed-api.service';
 import { NewsApiRepositoryService } from '../shared/services/news-api-repository.service';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'nb-dashboard',
@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private currentPage: number;
   private onSubscribeFn: (source: NewsBoard.SourceItemObject) => void;
   private narSub: Subscription;
+  recordsPerPage: number;
 
   constructor(private route: ActivatedRoute,
               private newsApiRepositoryService: NewsApiRepositoryService,
@@ -24,6 +25,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.numberOfPages = 0;
     this.currentPage = 1;
     this.onSubscribeFn = this.onSubscribe.bind(this);
+    this.recordsPerPage = 12;
   }
 
   paginationRoute(index: number): string {
@@ -38,19 +40,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.feedApiService.addFeed(source);
   }
 
-  // TODO add pipe for filtering
   public ngOnInit(): void {
-    const recordsPerPage = 12;
-    this.narSub = this.newsApiRepositoryService.getSources()
-      .subscribe(sources => {
-        this.numberOfPages = Math.ceil(sources.sources.length / recordsPerPage);
-        this.route.params.subscribe(params => {
-          const index: number = +params['index'];
-          const start: number = (index - 1) * recordsPerPage;
-          this.currentPage = index;
-          this.sources = sources.sources.slice(start, index * recordsPerPage);
-        });
-      });
+    const routeParams$ = this.route.params;
+    const sources$ = this.newsApiRepositoryService.getSources();
+    combineLatest(
+      routeParams$,
+      sources$
+    ).subscribe(value => {
+      const [params, sources] = value;
+      this.currentPage = +params['index'];
+      this.numberOfPages = sources.sources.length;
+      this.sources = sources.sources;
+    });
   }
 
   public ngOnDestroy(): void {

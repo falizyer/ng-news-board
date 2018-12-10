@@ -3,7 +3,7 @@
     <nb-source-search></nb-source-search>
   </div>
   <div class="dashboard-container">
-    <nb-source-container *ngFor="let source of sources"
+    <nb-source-container *ngFor="let source of sources | filter:currentPage:recordsPerPage"
                          [source]="source"
                          [onSubscribe]="onSubscribeFn"></nb-source-container>
   </div>
