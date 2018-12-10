@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FeedApiService } from '../shared/services/feed-api.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { NewsBoard } from '../index';
+import { FormControl, FormGroup } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, first, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'nb-feed',
@@ -10,33 +13,49 @@ import { Subscription } from 'rxjs';
 })
 export class FeedComponent implements OnInit, OnDestroy {
 
-  private feeds;
+  private searchTerms: Subject<FormGroup> = new Subject<FormGroup>();
+
+  private filterFeed: FormGroup;
+  private feeds$;
   private numberOfPages: number;
   private currentPage: number;
   private fdSub: Subscription;
 
+  language = 'en';
+
   constructor(private route: ActivatedRoute,
               private feedApiService: FeedApiService) {
-
+    this.numberOfPages = 0;
   }
 
   paginationRoute(index: number): string {
     return `/feed/${index}`;
   }
 
+  onSearch(filtered: FormGroup) {
+    this.searchTerms.next(filtered);
+  }
+
   // TODO add pipe for filtering
   public ngOnInit() {
-    const recordsPerPage = 10;
-    this.fdSub = this.feedApiService.getFeeds()
-      .subscribe(feeds => {
-        this.numberOfPages = Math.ceil(feeds.length / recordsPerPage);
-        this.route.params.subscribe(params => {
-          const index: number = +params['index'];
-          const start: number = (index - 1) * recordsPerPage;
-          this.currentPage = index;
-          this.feeds = feeds.slice(start, index * recordsPerPage);
-        });
-      });
+    const recordsPerPage = 2;
+    this.filterFeed = new FormGroup({
+      language: new FormControl(this.language)
+    });
+    this.route.params.subscribe(params => {
+      this.currentPage = +params['index'];
+      this.feeds$ = this.searchTerms.pipe(
+        debounceTime(300),
+        switchMap((form: FormGroup) => {
+          return this.feedApiService.getFeeds(form.value);
+        }),
+        map(value => {
+          this.numberOfPages = Math.ceil(value.length / recordsPerPage);
+          const start: number = (this.currentPage - 1) * recordsPerPage;
+          return value.slice(start, this.currentPage * recordsPerPage);
+        })
+      );
+    });
   }
 
   public ngOnDestroy(): void {

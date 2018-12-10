@@ -28,7 +28,7 @@ export class SourceSearchComponent implements OnInit {
     this.sources$ = this.searchTerms.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap((name: string) => this.newsApiRepository.getSources({language: name})),
+      switchMap((language: string) => this.newsApiRepository.getSources({language})),
       map(value => value.sources)
     );
   }
