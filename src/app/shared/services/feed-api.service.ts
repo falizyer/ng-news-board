@@ -10,7 +10,7 @@ function* getFeeds() {
 @Injectable({
   providedIn: 'root'
 })
-export class FeedApiService implements Resolve<any> {
+export class FeedApiService {
 
   feeds: NewsBoard.SourceItemObject[];
 
@@ -36,7 +36,7 @@ export class FeedApiService implements Resolve<any> {
     window.localStorage.setItem('feeds', JSON.stringify(feeds));
   }
 
-  public resolve(): Observable<any> {
+  public getFeeds(): Observable<any> {
     return from(getFeeds());
   }
 }

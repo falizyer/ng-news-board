@@ -1,4 +1,7 @@
 <div class="dashboard-inner-wrap">
+  <div class="search-container">
+    <nb-source-search></nb-source-search>
+  </div>
   <div class="dashboard-container">
     <nb-source-container *ngFor="let source of sources"
                          [source]="source"
