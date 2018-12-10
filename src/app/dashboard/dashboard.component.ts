@@ -13,19 +13,19 @@ import { Subscription, combineLatest } from 'rxjs';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   private sources: NewsBoard.SourceItemObject[] = [];
-  private numberOfPages: number;
   private currentPage: number;
   private onSubscribeFn: (source: NewsBoard.SourceItemObject) => void;
   private narSub: Subscription;
   recordsPerPage: number;
+  paginationLength: number;
 
   constructor(private route: ActivatedRoute,
               private newsApiRepositoryService: NewsApiRepositoryService,
               private feedApiService: FeedApiService) {
-    this.numberOfPages = 0;
     this.currentPage = 1;
     this.onSubscribeFn = this.onSubscribe.bind(this);
     this.recordsPerPage = 12;
+    this.paginationLength = 0;
   }
 
   paginationRoute(index: number): string {
@@ -49,8 +49,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ).subscribe(value => {
       const [params, sources] = value;
       this.currentPage = +params['index'];
-      this.numberOfPages = sources.sources.length;
       this.sources = sources.sources;
+      this.paginationLength = Math.ceil(this.sources.length / this.recordsPerPage);
     });
   }
 
