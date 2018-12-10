@@ -17,7 +17,6 @@ export class NewsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log();
     this.route.params.subscribe(params => {
       this.newsApiRepository.getArticleFromSource(params['id'])
         .pipe(map(value => value.articles))
@@ -25,7 +24,6 @@ export class NewsComponent implements OnInit {
           this.articles = articles;
         });
     });
-    // this.articles = news.articles;
   }
 
 }
