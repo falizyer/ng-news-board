@@ -34,4 +34,8 @@ export namespace NewsBoard {
     totalResults: number;
     articles: ArticleObject;
   };
+
+  export type FeedSearchItemObject = {
+    language?: string;
+  };
 }

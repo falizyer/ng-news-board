@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
 import { from, Observable } from 'rxjs';
 import { NewsBoard } from '../../index';
 
-function* getFeeds() {
-  yield JSON.parse(window.localStorage.getItem('feeds')) || [];
+function* getFeeds(searchItem: NewsBoard.FeedSearchItemObject = {}) {
+  let feedList = JSON.parse(window.localStorage.getItem('feeds'));
+  if (searchItem.language) {
+    feedList = feedList.filter((feed: NewsBoard.SourceItemObject) => feed.language.startsWith(searchItem.language));
+  }
+  yield feedList || [];
 }
 
 @Injectable({
@@ -36,7 +39,7 @@ export class FeedApiService {
     window.localStorage.setItem('feeds', JSON.stringify(feeds));
   }
 
-  public getFeeds(): Observable<any> {
-    return from(getFeeds());
+  public getFeeds(searchItem?: NewsBoard.FeedSearchItemObject): Observable<any> {
+    return from(getFeeds(searchItem));
   }
 }

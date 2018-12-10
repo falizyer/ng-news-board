@@ -1,5 +1,14 @@
-<div *ngFor="let feed of feeds">
-  <nb-source-container [source]="feed"></nb-source-container>
+<div class="filter-form-inner">
+  <h3>Filter form</h3>
+  <form [formGroup]="filterFeed" (input)="onSearch(filterFeed)">
+    <label>Language:
+      <input type="text" formControlName="language">
+    </label>
+  </form>
+</div>
+<div class="feed-container-inner">
+  <nb-source-container *ngFor="let feed of feeds$ | async"
+                       [source]="feed"></nb-source-container>
 </div>
 <nb-pagination [routeLink]="paginationRoute"
                [length]="numberOfPages"
