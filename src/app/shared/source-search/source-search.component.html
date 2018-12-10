@@ -1,3 +1,12 @@
-<p>
-  source-search works!
-</p>
+<div class="source-search-inner">
+  <h3>Dynamic Source search by language</h3>
+  <input #nbSourceSearch (input)="search(nbSourceSearch.value)">
+
+  <ul class="search-result">
+    <li *ngFor="let source of sources$ | async">
+      <a routerLink="/news/{{source.id}}">
+        {{source.name}}
+      </a>
+    </li>
+  </ul>
+</div>

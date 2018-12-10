@@ -15,8 +15,12 @@ export class NewsApiRepositoryService {
     this.apiUrl = 'https://newsapi.org/v2';
   }
 
-  public getSources(): Observable<any> {
-    const url = `${this.apiUrl}/sources?apiKey=${this.apiKey}`;
+  public getSources(properties: any = {}): Observable<any> {
+    const variables = [`apiKey=${this.apiKey}`];
+    if (properties.language) {
+      variables.push(`language=${properties.language}`);
+    }
+    const url = `${this.apiUrl}/sources?${variables.join('&')}`;
     return this.http.get(url);
   }
 

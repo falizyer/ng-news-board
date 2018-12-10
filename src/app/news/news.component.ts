@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NewsBoard } from '../index';
+import { NewsApiRepositoryService } from '../shared/services/news-api-repository.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'nb-news',
@@ -11,13 +13,19 @@ export class NewsComponent implements OnInit {
 
   private articles: NewsBoard.ArticleObject;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private newsApiRepository: NewsApiRepositoryService) {
   }
 
   ngOnInit() {
-    const { news } = this.route.snapshot.data;
-    this.articles = news.articles;
-    console.log(this.articles);
+    console.log();
+    this.route.params.subscribe(params => {
+      this.newsApiRepository.getArticleFromSource(params['id'])
+        .pipe(map(value => value.articles))
+        .subscribe(articles => {
+          this.articles = articles;
+        });
+    });
+    // this.articles = news.articles;
   }
 
 }
