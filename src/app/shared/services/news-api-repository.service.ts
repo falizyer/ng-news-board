@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class NewsApiRepositoryService {
 
   constructor(private http: HttpClient) {
     this.apiKey = 'b692d5f34dda413cab3001f0ee499f80';
-    this.apiUrl = 'https://newsapi.org/v2';
+    this.apiUrl = environment.production ? 'https://newsapi.org/v2' : 'http://localhost:9876';
   }
 
   private handleError<T>(operation: string, result?: T) {

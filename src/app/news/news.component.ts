@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class NewsComponent implements OnInit {
 
-  private articles: NewsBoard.ArticleObject;
+  articles: NewsBoard.ArticleObject;
 
   constructor(private route: ActivatedRoute, private newsApiRepository: NewsApiRepositoryService) {
   }

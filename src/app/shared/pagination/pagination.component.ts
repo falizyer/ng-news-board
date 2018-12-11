@@ -12,7 +12,7 @@ export class PaginationComponent implements OnChanges {
   @Input() public current: number;
   @Input() public routeLink: (index: number) => string;
 
-  private listOfIndexes: Array<number>;
+  listOfIndexes: Array<number>;
 
   constructor() {
     this.shift = 4;

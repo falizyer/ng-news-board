@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardApiService } from './dashboard-api.service';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'dashboard/:index', component: DashboardComponent }
 ];
 

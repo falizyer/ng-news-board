@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(value: any, ...args: any): any {
+  transform(value: any[] = [], ...args: any): any {
     const [index, recordsPerPage] = args;
     const start: number = (index - 1) * recordsPerPage;
     return value.slice(start, index * recordsPerPage);

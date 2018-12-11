@@ -1,4 +1,4 @@
 <div class="source-container-inner">
-  <h2><a routerLink="/news/{{source.id}}">{{source.name}}</a><span class="fa fa-star-o icon" (click)="onSubscribe(source)"></span></h2>
+  <h2><a routerLink="/news/{{source.id}}">{{source.name}}</a><span class="fa fa-star-o icon" (click)="onSubscribeCb(source)"></span></h2>
   <div class="content">{{source.description}}</div>
 </div>

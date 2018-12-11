@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: '/dashboard/1', pathMatch: 'full' }
 ];
 

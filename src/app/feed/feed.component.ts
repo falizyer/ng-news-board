@@ -15,12 +15,12 @@ export class FeedComponent implements OnInit, OnDestroy {
 
   private searchTerms: Subject<FormGroup> = new Subject<FormGroup>();
 
-  private filterFeed: FormGroup;
-  private feeds$;
-  private numberOfPages: number;
-  private currentPage: number;
   private fdSub: Subscription;
 
+  filterFeed: FormGroup;
+  feeds$;
+  numberOfPages: number;
+  currentPage: number;
   language = 'en';
 
   constructor(private route: ActivatedRoute,

@@ -13,7 +13,7 @@ import { NewsApiRepositoryService } from '../services/news-api-repository.servic
 })
 export class SourceSearchComponent implements OnInit {
 
-  private sources$: Observable<NewsBoard.SourceItemObject>;
+  sources$: Observable<NewsBoard.SourceItemObject>;
   private searchTerms: Subject<string> = new Subject<string>();
 
   constructor(private newsApiRepository: NewsApiRepositoryService) {
