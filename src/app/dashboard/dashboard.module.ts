@@ -18,7 +18,8 @@ import { FilterPipe } from './filter.pipe';
     DashboardRoutingModule,
     HttpClientModule,
     SharedModule
-  ]
+  ],
+  providers: [FilterPipe]
 })
 export class DashboardModule {
 }

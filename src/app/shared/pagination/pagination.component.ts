@@ -23,7 +23,8 @@ export class PaginationComponent implements OnChanges {
   public getListOfIndexes(): Array<number> {
     const minIndex: number = Math.max(1, this.current - this.shift);
     const maxIndex: number = Math.min(this.length, this.current + this.shift);
-    const list = new Array<number>(maxIndex - minIndex + 1);
+    const arrayLength: number = (maxIndex - minIndex + 1) || 0;
+    const list = new Array<number>(arrayLength);
     list.fill(0);
     return list.map((d, i) => minIndex + i);
   }
