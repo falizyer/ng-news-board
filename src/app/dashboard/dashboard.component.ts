@@ -47,6 +47,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       routeParams$,
       sources$
     ).subscribe(value => {
+      console.log(value);
       const [params, sources] = value;
       this.currentPage = +params['index'];
       this.sources = sources.sources;
