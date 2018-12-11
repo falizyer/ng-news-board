@@ -1,3 +1,7 @@
+declare const process: {
+  production: boolean;
+};
+
 export namespace NewsBoard {
 
   export type SourceItemObject = {
