@@ -9,9 +9,11 @@ import { NewsBoard } from '../../index';
 export class SourceContainerComponent implements OnInit {
 
   @Input() source: NewsBoard.SourceItemObject;
-  @Input() onSubscribe: (source) => void;
+  @Input() onSubscribeCb: (source) => void;
 
-  constructor() { }
+  constructor() {
+    this.source = {} as NewsBoard.SourceItemObject;
+  }
 
   ngOnInit() {
   }

@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedComponent } from './feed.component';
+import { FeedModule } from './feed.module';
+import { SharedModule } from '../shared/shared.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('FeedComponent', () => {
   let component: FeedComponent;
@@ -8,9 +11,13 @@ describe('FeedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FeedComponent ]
+      imports: [
+        FeedModule,
+        SharedModule,
+        RouterTestingModule
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
