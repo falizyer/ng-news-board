@@ -12,8 +12,10 @@ import { map } from 'rxjs/operators';
 export class NewsComponent implements OnInit {
 
   articles: NewsBoard.ArticleObject;
+  isComponentReady: boolean;
 
   constructor(private route: ActivatedRoute, private newsApiRepository: NewsApiRepositoryService) {
+    this.isComponentReady = false;
   }
 
   ngOnInit() {
@@ -22,6 +24,7 @@ export class NewsComponent implements OnInit {
         .pipe(map(value => value.articles))
         .subscribe(articles => {
           this.articles = articles;
+          this.isComponentReady = true;
         });
     });
   }

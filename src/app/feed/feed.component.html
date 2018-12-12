@@ -10,6 +10,9 @@
   <nb-source-container *ngFor="let feed of feeds$ | async"
                        [source]="feed"></nb-source-container>
 </div>
+<i class="fa fa-spinner fa-spin" *ngIf="!isComponentReady"
+   style="font-size:34px; width: 34px; align-self: center"></i>
 <nb-pagination [routeLink]="paginationRoute"
                [length]="numberOfPages"
                [current]="currentPage"></nb-pagination>
+

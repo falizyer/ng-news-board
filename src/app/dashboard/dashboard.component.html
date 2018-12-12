@@ -2,12 +2,15 @@
   <div class="search-container">
     <nb-source-search></nb-source-search>
   </div>
-  <div class="dashboard-container">
+  <i class="fa fa-spinner fa-spin" *ngIf="!isComponentReady"
+     style="font-size:34px; width: 34px; align-self: center"></i>
+  <div *ngIf="isComponentReady" class="dashboard-container">
     <nb-source-container *ngFor="let source of sources | filter:currentPage:recordsPerPage"
                          [source]="source"
                          [onSubscribeCb]="onSubscribeFn"></nb-source-container>
   </div>
-  <nb-pagination [routeLink]="paginationRoute"
+  <nb-pagination *ngIf="isComponentReady"
+                 [routeLink]="paginationRoute"
                  [length]="paginationLength"
                  [current]="currentPage"></nb-pagination>
 </div>
