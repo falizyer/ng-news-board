@@ -1,7 +1,7 @@
 <div class="nb-pagination-wrap">
   <ul class="flat-list pagination-list">
     <li *ngFor="let index of listOfIndexes">
-      <a [routerLink]="routeLink(index)"
+      <a [routerLink]="[routeLink(index) | localize]"
          [routerLinkActive]="['active']">{{index}}</a>
     </li>
   </ul>

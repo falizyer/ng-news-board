@@ -3,8 +3,8 @@
   <header>
     <nav>
       <ul class="flat-list nav-menu">
-        <li><a routerLink="/dashboard/1">{{'NAV_BAR.LINK_TITLE.DASHBOARD' | translate}}</a></li>
-        <li><a routerLink="/feed/1">{{'NAV_BAR.LINK_TITLE.FEEDS' | translate}}</a></li>
+        <li><a [routerLink]="['/dashboard' | localize]" [routerLinkActive]="['active']">{{'NAV_BAR.LINK_TITLE.DASHBOARD' | translate}}</a></li>
+        <li><a [routerLink]="['/feed' | localize]" [routerLinkActive]="['active']">{{'NAV_BAR.LINK_TITLE.FEEDS' | translate}}</a></li>
       </ul>
       <div class="language-switcher">
         <label>Language:
