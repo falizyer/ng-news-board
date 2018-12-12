@@ -4,6 +4,7 @@ import { NewsBoard } from '../index';
 import { FeedApiService } from '../shared/services/feed-api.service';
 import { NewsApiRepositoryService } from '../shared/services/news-api-repository.service';
 import { Subscription, combineLatest } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'nb-dashboard',
@@ -49,7 +50,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ).subscribe(value => {
       const [params, sources] = value;
       this.currentPage = +params['index'];
-      this.sources = sources.sources;
+      this.sources = environment.production ? sources.sources : sources[0].sources;
       this.paginationLength = Math.ceil(this.sources.length / this.recordsPerPage);
     });
   }
