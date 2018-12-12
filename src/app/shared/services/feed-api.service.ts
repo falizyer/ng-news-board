@@ -3,7 +3,7 @@ import { from, Observable } from 'rxjs';
 import { NewsBoard } from '../../index';
 
 function* getFeeds(searchItem: NewsBoard.FeedSearchItemObject = {}) {
-  let feedList = JSON.parse(window.localStorage.getItem('feeds'));
+  let feedList = JSON.parse(window.localStorage.getItem('feeds')) || [];
   if (searchItem.language) {
     feedList = feedList.filter((feed: NewsBoard.SourceItemObject) => feed.language.startsWith(searchItem.language));
   }

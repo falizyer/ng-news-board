@@ -6,6 +6,7 @@ import { SourceContainerComponent } from './source-container/source-container.co
 import { PaginationComponent } from './pagination/pagination.component';
 import { FeedApiService } from './services/feed-api.service';
 import { SourceSearchComponent } from './source-search/source-search.component';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SourceSearchComponent } from './source-search/source-search.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    AppRoutingModule
   ],
   exports: [
     SourceContainerComponent,

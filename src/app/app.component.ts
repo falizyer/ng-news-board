@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalizeRouterService } from 'localize-router';
 
 @Component({
   selector: 'nb-root',
@@ -10,12 +11,11 @@ export class AppComponent {
 
   languages: string[] = ['en', 'ru'];
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private localize: LocalizeRouterService) {
     translate.setDefaultLang('en');
-    translate.use('en');
   }
 
   onChangeLanguage(language: string) {
-    this.translate.use(language);
+    this.localize.changeLanguage(language)
   }
 }
