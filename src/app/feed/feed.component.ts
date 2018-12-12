@@ -1,17 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterContentInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FeedApiService } from '../shared/services/feed-api.service';
 import { Subject, Subscription } from 'rxjs';
 import { NewsBoard } from '../index';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, first, map, switchMap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'nb-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss']
 })
-export class FeedComponent implements OnInit, OnDestroy {
+export class FeedComponent implements OnInit, OnDestroy, AfterContentInit {
 
   private searchTerms: Subject<FormGroup> = new Subject<FormGroup>();
 
@@ -21,11 +22,15 @@ export class FeedComponent implements OnInit, OnDestroy {
   feeds$;
   numberOfPages: number;
   currentPage: number;
-  language = 'en';
+  language: string;
+  isComponentReady: boolean;
 
   constructor(private route: ActivatedRoute,
-              private feedApiService: FeedApiService) {
+              private feedApiService: FeedApiService,
+              private translation: TranslateService) {
     this.numberOfPages = 0;
+    this.language = this.translation.getBrowserLang();
+    this.isComponentReady = false;
   }
 
   paginationRoute(index: number): string {
@@ -33,6 +38,7 @@ export class FeedComponent implements OnInit, OnDestroy {
   }
 
   onSearch(filtered: FormGroup) {
+    this.isComponentReady = false;
     this.searchTerms.next(filtered);
   }
 
@@ -53,10 +59,15 @@ export class FeedComponent implements OnInit, OnDestroy {
         map(value => {
           this.numberOfPages = Math.ceil(value.length / recordsPerPage);
           const start: number = (this.currentPage - 1) * recordsPerPage;
+          this.isComponentReady = true;
           return value.slice(start, this.currentPage * recordsPerPage);
         })
       );
     });
+  }
+
+  ngAfterContentInit(): void {
+    this.onSearch(this.filterFeed);
   }
 
   public ngOnDestroy(): void {

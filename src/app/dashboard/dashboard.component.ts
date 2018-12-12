@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private narSub: Subscription;
   recordsPerPage: number;
   paginationLength: number;
+  isComponentReady: boolean;
 
   constructor(private route: ActivatedRoute,
               private newsApiRepositoryService: NewsApiRepositoryService,
@@ -27,6 +28,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.onSubscribeFn = this.onSubscribe.bind(this);
     this.recordsPerPage = 12;
     this.paginationLength = 0;
+    this.isComponentReady = false;
   }
 
   paginationRoute(index: number): string {
@@ -52,6 +54,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.currentPage = +params['index'];
       this.sources = sources.sources;
       this.paginationLength = Math.ceil(this.sources.length / this.recordsPerPage);
+      this.isComponentReady = true;
     });
   }
 
