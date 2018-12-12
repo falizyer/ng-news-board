@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
-import { DashboardApiService } from './dashboard-api.service';
 
 export const routes: Routes = [
   { path: 'dashboard/:index', component: DashboardComponent }
@@ -12,8 +11,7 @@ export const routes: Routes = [
   imports: [
     RouterModule.forChild(routes)
   ],
-  exports: [RouterModule],
-  providers: [DashboardApiService]
+  exports: [RouterModule]
 })
 export class DashboardRoutingModule {
 }

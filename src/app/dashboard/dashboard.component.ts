@@ -4,6 +4,7 @@ import { NewsBoard } from '../index';
 import { FeedApiService } from '../shared/services/feed-api.service';
 import { NewsApiRepositoryService } from '../shared/services/news-api-repository.service';
 import { Subscription, combineLatest } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'nb-dashboard',

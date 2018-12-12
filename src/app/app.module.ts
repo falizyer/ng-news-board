@@ -14,24 +14,26 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
+const imports = [
+  TranslateModule.forRoot({
+    loader: {
+      provide: TranslateLoader,
+      useFactory: HttpLoaderFactory,
+      deps: [HttpClient]
+    }
+  }),
+  BrowserModule,
+  AppRoutingModule,
+  DashboardModule,
+  FeedModule,
+  NewsModule
+];
+
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports: [
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    BrowserModule,
-    AppRoutingModule,
-    DashboardModule,
-    FeedModule,
-    NewsModule
-  ],
+  imports,
   providers: [],
   bootstrap: [AppComponent]
 })
