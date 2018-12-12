@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ).subscribe(value => {
       const [params, sources] = value;
       this.currentPage = +params['index'];
-      this.sources = environment.production ? sources.sources : sources[0].sources;
+      this.sources = sources.sources;
       this.paginationLength = Math.ceil(this.sources.length / this.recordsPerPage);
     });
   }
