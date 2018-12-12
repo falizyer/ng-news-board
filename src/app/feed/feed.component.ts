@@ -2,9 +2,8 @@ import { Component, OnDestroy, OnInit, AfterContentInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FeedApiService } from '../shared/services/feed-api.service';
 import { Subject, Subscription } from 'rxjs';
-import { NewsBoard } from '../index';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, first, map, switchMap } from 'rxjs/operators';
+import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
