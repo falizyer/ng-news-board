@@ -2,10 +2,17 @@
   <h1>{{'APPLICATION.PAGE.TITLE' | translate}}</h1>
   <header>
     <nav>
-      <ul class="flat-list">
+      <ul class="flat-list nav-menu">
         <li><a routerLink="/dashboard/1">{{'NAV_BAR.LINK_TITLE.DASHBOARD' | translate}}</a></li>
         <li><a routerLink="/feed/1">{{'NAV_BAR.LINK_TITLE.FEEDS' | translate}}</a></li>
       </ul>
+      <div class="language-switcher">
+        <label>Language:
+          <ul class="flat-list">
+            <li *ngFor="let language of languages" (click)="onChangeLanguage(language)">{{language}}</li>
+          </ul>
+        </label>
+      </div>
     </nav>
   </header>
   <router-outlet></router-outlet>

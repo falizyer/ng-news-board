@@ -13,6 +13,8 @@ ul.flat-list {
   display: flex;
   list-style: none;
   padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 
   & > li {
     margin-right: 10px;

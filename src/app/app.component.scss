@@ -2,3 +2,43 @@
   max-width: 1024px;
   margin: 0 auto;
 }
+
+main {
+
+  header {
+    display: flex;
+
+    nav {
+      display: flex;
+      flex-grow: 1;
+      flex-shrink: 1;
+
+      .nav-menu {
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
+
+      .language-switcher {
+        display: flex;
+
+        label {
+          display: flex;
+
+          .flat-list {
+            margin-left: 10px;
+
+            li {
+              cursor: pointer;
+            }
+
+            li:hover {
+              text-decoration: underline;
+              color: #666666;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
