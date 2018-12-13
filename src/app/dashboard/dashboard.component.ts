@@ -12,10 +12,10 @@ import { Subscription, combineLatest } from 'rxjs';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  sources: NewsBoard.SourceItemObject[] = [];
-  currentPage: number;
   private onSubscribeFn: (source: NewsBoard.SourceItemObject) => void;
   private narSub: Subscription;
+  sources: NewsBoard.SourceItemObject[] = [];
+  currentPage: number;
   recordsPerPage: number;
   paginationLength: number;
   isComponentReady: boolean;

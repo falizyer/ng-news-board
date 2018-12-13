@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit, AfterContentInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FeedApiService } from '../shared/services/feed-api.service';
-import { Subject, Subscription } from 'rxjs';
+import { combineLatest, Subject, Subscription } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { NewsBoard } from '../index';
+import { __await } from 'tslib';
+import { LocalizeRouterService } from 'localize-router';
 
 @Component({
   selector: 'nb-feed',
@@ -14,11 +17,10 @@ import { TranslateService } from '@ngx-translate/core';
 export class FeedComponent implements OnInit, OnDestroy, AfterContentInit {
 
   private searchTerms: Subject<FormGroup> = new Subject<FormGroup>();
-
   private fdSub: Subscription;
 
   filterFeed: FormGroup;
-  feeds$;
+  feeds: NewsBoard.SourceItemObject[];
   numberOfPages: number;
   currentPage: number;
   language: string;
@@ -26,7 +28,9 @@ export class FeedComponent implements OnInit, OnDestroy, AfterContentInit {
 
   constructor(private route: ActivatedRoute,
               private feedApiService: FeedApiService,
-              private translation: TranslateService) {
+              private translation: TranslateService,
+              private router: Router,
+              private localizeRouterService: LocalizeRouterService) {
     this.numberOfPages = 0;
     this.language = this.translation.getBrowserLang();
     this.isComponentReady = false;
@@ -48,20 +52,25 @@ export class FeedComponent implements OnInit, OnDestroy, AfterContentInit {
     this.filterFeed = new FormGroup({
       language: new FormControl(this.language)
     });
-    this.route.params.subscribe(params => {
+    const params$ = this.route.params;
+    const feeds$ = this.searchTerms.pipe(
+      debounceTime(300),
+      switchMap((form: FormGroup) => this.feedApiService.getFeeds(form.value))
+    );
+    combineLatest(
+      params$, feeds$
+    ).subscribe(async value => {
+      const [params, feeds] = value;
       this.currentPage = +params['index'];
-      this.feeds$ = this.searchTerms.pipe(
-        debounceTime(300),
-        switchMap((form: FormGroup) => {
-          return this.feedApiService.getFeeds(form.value);
-        }),
-        map(value => {
-          this.numberOfPages = Math.ceil(value.length / recordsPerPage);
-          const start: number = (this.currentPage - 1) * recordsPerPage;
-          this.isComponentReady = true;
-          return value.slice(start, this.currentPage * recordsPerPage);
-        })
-      );
+      this.numberOfPages = Math.ceil(feeds.length / recordsPerPage);
+      const start: number = (this.currentPage - 1) * recordsPerPage;
+      this.feeds = feeds.slice(start, this.currentPage * recordsPerPage);
+      this.isComponentReady = true;
+      if (this.currentPage > this.numberOfPages) {
+        const routeName: string = this.paginationRoute(this.numberOfPages);
+        const page = this.localizeRouterService.translateRoute(routeName);
+        await this.router.navigate([page]);
+      }
     });
   }
 
