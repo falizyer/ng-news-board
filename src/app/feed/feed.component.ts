@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NewsBoard } from '../index';
 import { __await } from 'tslib';
 import { LocalizeRouterService } from 'localize-router';
+import { el } from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
   selector: 'nb-feed',
@@ -26,16 +27,29 @@ export class FeedComponent implements OnInit, OnDestroy, AfterContentInit {
   language: string;
   isComponentReady: boolean;
   recordsPerPage: number;
+  toggleSubscribe: (source) => void;
+  sourceContainerButtons;
 
   constructor(private route: ActivatedRoute,
               private feedApiService: FeedApiService,
               private translation: TranslateService,
               private router: Router,
               private localizeRouterService: LocalizeRouterService) {
-    this.numberOfPages = 0;
+    this.numberOfPages = 1;
+    this.recordsPerPage = 2;
     this.language = this.translation.getBrowserLang();
     this.isComponentReady = false;
-    this.recordsPerPage = 2;
+    this.toggleSubscribe = this.onSubscribeCb.bind(this);
+  }
+
+  onSubscribeCb(source) {
+    if (this.feedApiService.isExists(source)) {
+      this.feedApiService.removeFeed(source);
+      source.isSubscribed = false;
+      return;
+    }
+    this.feedApiService.addFeed(source);
+    source.isSubscribed = true;
   }
 
   paginationRoute(index: number): string {
@@ -50,6 +64,21 @@ export class FeedComponent implements OnInit, OnDestroy, AfterContentInit {
   // TODO + add pipe for filtering
   //      + fix issue with saving form state
   public ngOnInit() {
+    this.sourceContainerButtons = [{
+      classList(source: NewsBoard.SourceItemObject) {
+        return source.isSubscribed ? ['fa-star'] : ['fa-star-o'];
+      },
+      toggle: (source: NewsBoard.SourceItemObject) => {
+        if (this.feedApiService.isExists(source)) {
+          source.isSubscribed = false;
+          this.feedApiService.removeFeed(source);
+        } else {
+          source.isSubscribed = true;
+          this.feedApiService.addFeed(source);
+        }
+        this.onSearch(this.filterFeed);
+      }
+    }];
     this.filterFeed = new FormGroup({
       language: new FormControl(this.language)
     });
