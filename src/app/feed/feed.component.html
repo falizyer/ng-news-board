@@ -7,7 +7,7 @@
   </form>
 </div>
 <div class="feed-container-inner">
-  <nb-source-container *ngFor="let feed of feeds$ | async"
+  <nb-source-container *ngFor="let feed of feeds"
                        [source]="feed"></nb-source-container>
 </div>
 <i class="fa fa-spinner fa-spin" *ngIf="!isComponentReady"
