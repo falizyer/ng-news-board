@@ -1,0 +1,12 @@
+.feed-container-inner {
+  display: flex;
+  flex-direction: row;
+
+  nb-source-container {
+    flex-basis: 50%;
+    min-width: 200px;
+    flex-shrink: 1;
+    flex-grow: 1;
+    padding: 10px;
+  }
+}
