@@ -25,6 +25,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterContentInit {
   currentPage: number;
   language: string;
   isComponentReady: boolean;
+  recordsPerPage: number;
 
   constructor(private route: ActivatedRoute,
               private feedApiService: FeedApiService,
@@ -34,6 +35,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterContentInit {
     this.numberOfPages = 0;
     this.language = this.translation.getBrowserLang();
     this.isComponentReady = false;
+    this.recordsPerPage = 2;
   }
 
   paginationRoute(index: number): string {
@@ -48,7 +50,6 @@ export class FeedComponent implements OnInit, OnDestroy, AfterContentInit {
   // TODO + add pipe for filtering
   //      + fix issue with saving form state
   public ngOnInit() {
-    const recordsPerPage = 2;
     this.filterFeed = new FormGroup({
       language: new FormControl(this.language)
     });
@@ -62,15 +63,14 @@ export class FeedComponent implements OnInit, OnDestroy, AfterContentInit {
     ).subscribe(async value => {
       const [params, feeds] = value;
       this.currentPage = +params['index'];
-      this.numberOfPages = Math.ceil(feeds.length / recordsPerPage);
-      const start: number = (this.currentPage - 1) * recordsPerPage;
-      this.feeds = feeds.slice(start, this.currentPage * recordsPerPage);
-      this.isComponentReady = true;
+      this.numberOfPages = Math.max(Math.ceil(feeds.length / this.recordsPerPage), 1);
+      this.feeds = feeds;
       if (this.currentPage > this.numberOfPages) {
         const routeName: string = this.paginationRoute(this.numberOfPages);
         const page = this.localizeRouterService.translateRoute(routeName);
         await this.router.navigate([page]);
       }
+      this.isComponentReady = true;
     });
   }
 

@@ -2,15 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { random } from 'faker';
 
 import { DashboardComponent } from './dashboard.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from '../shared/shared.module';
 import { FeedApiService } from '../shared/services/feed-api.service';
 import { NewsBoard } from '../index';
 import { NewsApiRepositoryService } from '../shared/services/news-api-repository.service';
 import { Observable, of } from 'rxjs';
-import { routes } from '../app-routing.module';
-import { routes as dashboardRoutes } from './dashboard-routing.module';
-import { FilterPipe } from './filter.pipe';
+import { FilterPipe } from '../shared/pipes/filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('DashboardComponent', () => {
@@ -55,7 +52,6 @@ describe('DashboardComponent', () => {
         FilterPipe
       ],
       imports: [
-        RouterTestingModule.withRoutes([...routes, ...dashboardRoutes]),
         SharedModule,
         HttpClientModule
       ],
