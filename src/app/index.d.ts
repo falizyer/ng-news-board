@@ -12,6 +12,7 @@ export namespace NewsBoard {
     category: string;
     language: string;
     country: string;
+    isSubscribed?: boolean;
   };
 
   export type SourceItemResponseObject = {

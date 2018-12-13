@@ -7,7 +7,7 @@
   <div *ngIf="isComponentReady" class="dashboard-container">
     <nb-source-container *ngFor="let source of sources | filter:currentPage:recordsPerPage"
                          [source]="source"
-                         [onSubscribeCb]="onSubscribeFn"></nb-source-container>
+                         [buttons]="sourceContainerButtons"></nb-source-container>
   </div>
   <nb-pagination *ngIf="isComponentReady"
                  [routeLink]="paginationRoute"

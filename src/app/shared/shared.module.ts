@@ -7,12 +7,14 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { FeedApiService } from './services/feed-api.service';
 import { SourceSearchComponent } from './source-search/source-search.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
     SourceContainerComponent,
     PaginationComponent,
-    SourceSearchComponent
+    SourceSearchComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
@@ -22,8 +24,9 @@ import { AppRoutingModule } from '../app-routing.module';
   exports: [
     SourceContainerComponent,
     PaginationComponent,
-    SourceSearchComponent
+    SourceSearchComponent,
+    FilterPipe
   ],
-  providers: [FeedApiService]
+  providers: [FeedApiService, FilterPipe]
 })
 export class SharedModule { }

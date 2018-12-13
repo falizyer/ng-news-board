@@ -1,4 +1,9 @@
 <div class="source-container-inner">
-  <h2><a [routerLink]="['/news/' + source.id | localize]">{{source.name}}</a><span class="fa fa-star-o icon" (click)="onSubscribeCb(source)"></span></h2>
+  <h2><a [routerLink]="['/news/' + source.id | localize]">{{source.name}}</a>
+    <span class="fa icon"
+          *ngFor="let btn of buttons"
+          [ngClass]="btn.classList(source)"
+          (click)="btn.toggle(source)"></span>
+  </h2>
   <div class="content">{{source.description}}</div>
 </div>
