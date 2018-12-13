@@ -1,9 +1,8 @@
 <div class="news-component-inner">
-  <div *ngFor="let article of articles">
-    <div class="title">{{article.title}}</div>
+  <article class="news-container" *ngFor="let article of articles">
+    <h4 class="title">{{article.title}}</h4>
     <div class="description">{{article.description}}</div>
-    <br/>
-  </div>
+  </article>
   <i class="fa fa-spinner fa-spin" *ngIf="!isComponentReady"
      style="font-size:34px; width: 34px; align-self: center"></i>
 </div>

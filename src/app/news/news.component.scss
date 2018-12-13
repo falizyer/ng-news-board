@@ -1,0 +1,13 @@
+.news-component-inner {
+  display: flex;
+  flex-direction: column;
+
+  .news-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px 10px;
+    border-bottom: #000 dashed;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+}
